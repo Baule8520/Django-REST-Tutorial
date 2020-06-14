@@ -1,5 +1,6 @@
 Following this tutorial (https://www.youtube.com/watch?v=B38aDwUpcFc) to learn DJANGO REST Framework.
 
+
 Table of Content:
 
 0 - Django REST Framework Introduction
@@ -8,9 +9,9 @@ Table of Content:
 
 2 - Django REST Framework  Serializer - Commit 1
 
-3 - REST Framework Modal Serializer
+3 - REST Framework Model Serializer - Commit 2
 
-4 - REST Framework Function Based API Views
+4 - REST Framework Function Based API Views - Commit 3
 
 5 - REST Framework api_view() Decorator
 

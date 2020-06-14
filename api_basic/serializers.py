@@ -26,7 +26,7 @@ from .models import Article     # Import the Database class
         #return instance
 
 
-class ArticleSerializer(serializers.ModelSerializer):
+class ArticleSerializer(serializers.ModelSerializer): # Commit 2 - the lot easier ModelSerializer
     class Meta:
         model = Article
         fields = ['id', 'title', 'author']
