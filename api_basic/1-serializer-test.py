@@ -1,3 +1,4 @@
+# To be used in "python manage.py shell"
 # Example of how to convert from Database Entry to Serialized Data (Dictionary) and then to JSON Data
 
 from api_basic.models import Article
