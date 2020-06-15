@@ -18,6 +18,6 @@ Commit 7 - REST Framework Authentication
 </br>
 Commit 8 - REST Framework Viewsets & Routers - Not running properly
 </br>
-10 - REST Framework Generic Viewsets
+Commit 9 - REST Framework Generic Viewsets
 </br>
 11 - REST Framework Modal Viewsets

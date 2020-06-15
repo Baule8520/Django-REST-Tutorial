@@ -146,35 +146,51 @@ class GenericAPIView(generics.GenericAPIView, mixins.ListModelMixin, # All these
 ######## ViewSet API Views ########
 
 
-class ArticleViewSet(viewsets.ViewSet): # I think Commit 8 - ViewSets don't bring any advantage...it's just more complicated with the router...
+#class ArticleViewSet(viewsets.ViewSet): # I think Commit 8 - ViewSets don't bring any advantage...it's just more complicated...
 
-    def list(self, request): # GET All
-        articles = Article.objects.all()
-        serializer = ArticleSerializer(articles, many=True)
-        return Response(serializer.data) 
+ #   def list(self, request): # GET All
+  #      articles = Article.objects.all()
+   #     serializer = ArticleSerializer(articles, many=True)
+    #    return Response(serializer.data) 
 
-    def create(self, request): # POST
-        serializer = ArticleSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    #def create(self, request): # POST
+     #   serializer = ArticleSerializer(data=request.data)
+      #  if serializer.is_valid():
+       #     serializer.save()
+        #    return Response(serializer.data, status=status.HTTP_201_CREATED)
+        #return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    def retrieve(self, request, pk=None): # GET one - not working
-        queryset = Article.objects.all()
-        article = get_object_or_404(queryset, pk)
-        serializer = ArticleSerializer(article)
-        return Response(serializer.data)
+    #def retrieve(self, request, pk=None): # GET one - not working
+     #   queryset = Article.objects.all()
+      #  article = get_object_or_404(queryset, pk)
+       # serializer = ArticleSerializer(article)
+        #return Response(serializer.data)
 
-    def update(self, request, pk=None): # PUT - not working
-        article = Article.object.get(pk=pk)
-        serializer = ArticleSerializer(article, data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    #def update(self, request, pk=None): # PUT - not working
+     #   article = Article.object.get(pk=pk)
+      #  serializer = ArticleSerializer(article, data=request.data)
+       # if serializer.is_valid():
+        #    serializer.save()
+         #   return Response(serializer.data)
+        #return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    def destroy(self, request, pk=None): # DELETE - not working
-        article = Article.get_object(pk=pk)
-        article.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
+    #def destroy(self, request, pk=None): # DELETE - not working
+     #   article = Article.get_object(pk=pk)
+      #  article.delete()
+       # return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+######## Generic ViewSet API Views ########
+
+
+# From Documentation:
+# Some Web frameworks such as Rails provide functionality for automatically determining how the URLs for an application should be mapped to the logic that deals with handling incoming requests.
+# REST framework adds support for automatic URL routing to Django, and provides you with a simple, quick and consistent way of wiring your view logic to a set of URLs.
+
+class ArticleViewSet(viewsets.GenericViewSet, mixins.ListModelMixin, # Commit 9 - Now these ViewSets make sense - All these mixin functions do the work!
+                     mixins.CreateModelMixin, mixins.UpdateModelMixin, 
+                     mixins.RetrieveModelMixin, mixins.DestroyModelMixin):
+
+    serializer_class = ArticleSerializer # Define serializer
+    queryset = Article.objects.all() # Define queryset
+    lookup_field = 'id' # Define lookup_parameter
