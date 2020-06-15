@@ -14,7 +14,7 @@ Commit 5 - REST Class Based API Views
 </br>
 Commit 6 - REST Generic Views & Mixins
 </br>
-8 - REST Framework Authentication
+Commit 7 - REST Framework Authentication
 </br>
 9 - REST Framework Viewsets & Routers
 </br>

@@ -7,6 +7,8 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.views import APIView # Commit 5 - To use Class Based Views, see classes ArticleAPIView & ArticleAPIDetail
 from rest_framework import generics, mixins # Commit 6 - To use Generic API Views
+from rest_framework.authentication import BasicAuthentication, SessionAuthentication, TokenAuthentication # Commit 7 - 3 Types of Authentication
+from rest_framework.permissions import IsAuthenticated
 
 # from django.views.decorators.csrf import csrf_exempt <-- Needed that the API works without CSRF Token when not using api_view decorator, not safe for production!
 
@@ -116,8 +118,12 @@ class GenericAPIView(generics.GenericAPIView, mixins.ListModelMixin, # All these
 
     serializer_class = ArticleSerializer # Specify our serializer
     queryset = Article.objects.all() # Specify out queryset
-
     lookup_field = 'id' # Lookupfield when we want to perform action on specific dataset
+
+    # Commit 7 - Authentication
+    # authentication_classes = [SessionAuthentication, BasicAuthentication] # Simple Authentication: Works with the Django Credentials
+    authentication_classes = [TokenAuthentication] # Token Authentication: Has to be added in Admin Panel
+    permission_classes = [IsAuthenticated] # Allows the user to retrieve the data only if authenticated
 
     def get(self, request, id=None): # GET or "if id:" --> retrieve detail from id
         if id:

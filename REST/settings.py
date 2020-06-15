@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',   # Rest Framework 
     'api_basic',        # The created app
+    'rest_framework.authtoken', # Commit 7 - Added Token Authentication --> python manage.py migrate
 ]
 
 MIDDLEWARE = [
