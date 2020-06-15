@@ -12,7 +12,7 @@ Commit 4 - REST Framework api_view() Decorator
 </br>
 Commit 5 - REST Class Based API Views
 </br>
-7 - REST Generic Views & Mixins
+Commit 6 - REST Generic Views & Mixins
 </br>
 8 - REST Framework Authentication
 </br>

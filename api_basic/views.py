@@ -6,6 +6,7 @@ from rest_framework.decorators import api_view # Commit 4 - The 3 packages down 
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.views import APIView # Commit 5 - To use Class Based Views, see classes ArticleAPIView & ArticleAPIDetail
+from rest_framework import generics, mixins # Commit 6 - To use Generic API Views
 
 # from django.views.decorators.csrf import csrf_exempt <-- Needed that the API works without CSRF Token when not using api_view decorator, not safe for production!
 
@@ -104,3 +105,31 @@ class ArticleAPIDetail(APIView): # Like the "def article_detail(request, pk):" a
         article = self.get_object(id)
         article.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+######## Generic API Views ########
+
+
+class GenericAPIView(generics.GenericAPIView, mixins.ListModelMixin, # All these mixin functions have to be imported
+                     mixins.CreateModelMixin, mixins.UpdateModelMixin, 
+                     mixins.RetrieveModelMixin, mixins.DestroyModelMixin):
+
+    serializer_class = ArticleSerializer # Specify our serializer
+    queryset = Article.objects.all() # Specify out queryset
+
+    lookup_field = 'id' # Lookupfield when we want to perform action on specific dataset
+
+    def get(self, request, id=None): # GET or "if id:" --> retrieve detail from id
+        if id:
+            return self.retrieve(request)
+        else:
+            return self.list(request)
+
+    def post(self, request): # POST
+        return self.create(request)
+
+    def put(self, request, id): # PUT
+        return self.update(request, id)
+
+    def delete(self, request, id): # DELETE
+        return self.destroy(request, id)

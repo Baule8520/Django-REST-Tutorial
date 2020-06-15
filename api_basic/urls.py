@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import article_list, article_detail, ArticleAPIView, ArticleAPIDetail
+from .views import article_list, article_detail, ArticleAPIView, ArticleAPIDetail, GenericAPIView
 
 # The API Url's (to test you can use Postman)
 
@@ -9,4 +9,7 @@ urlpatterns = [
 
     path('API/', ArticleAPIView.as_view()), # Commit 5 - Use Class Based Views - GET: Gives a list of all articles, POST: Creates a new entry
     path('APIDetail/<int:id>/', ArticleAPIDetail.as_view()), # Commit 5 - Use Class Based Views - GET, PUT (Update information), DELETE single Articles indentified by integer "id"
+
+    path('GenericAPI/', GenericAPIView.as_view()), # Commit 6 - Generic API Views - GET, POST
+    path('GenericAPI/<int:id>/', GenericAPIView.as_view()), # Commit 6 - Generic API Views - GET, PUT, DELETE
 ]
