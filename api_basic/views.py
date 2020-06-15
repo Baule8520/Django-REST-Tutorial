@@ -187,10 +187,21 @@ class GenericAPIView(generics.GenericAPIView, mixins.ListModelMixin, # All these
 # Some Web frameworks such as Rails provide functionality for automatically determining how the URLs for an application should be mapped to the logic that deals with handling incoming requests.
 # REST framework adds support for automatic URL routing to Django, and provides you with a simple, quick and consistent way of wiring your view logic to a set of URLs.
 
-class ArticleViewSet(viewsets.GenericViewSet, mixins.ListModelMixin, # Commit 9 - Now these ViewSets make sense - All these mixin functions do the work!
-                     mixins.CreateModelMixin, mixins.UpdateModelMixin, 
-                     mixins.RetrieveModelMixin, mixins.DestroyModelMixin):
+#class ArticleViewSet(viewsets.GenericViewSet, mixins.ListModelMixin, # Commit 9 - Now these ViewSets make sense - All these mixin functions do the work!
+ #                    mixins.CreateModelMixin, mixins.UpdateModelMixin, 
+  #                   mixins.RetrieveModelMixin, mixins.DestroyModelMixin):
+#
+ #   serializer_class = ArticleSerializer # Define serializer
+  #  queryset = Article.objects.all() # Define queryset
+   # lookup_field = 'id' # Define lookup_parameter
+
+
+######## Model ViewSet API Views ########
+
+
+# Commit 10 - So this is the easiest way to provide full functionality.
+
+class ArticleViewSet(viewsets.ModelViewSet):
 
     serializer_class = ArticleSerializer # Define serializer
     queryset = Article.objects.all() # Define queryset
-    lookup_field = 'id' # Define lookup_parameter

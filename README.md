@@ -20,4 +20,4 @@ Commit 8 - REST Framework Viewsets & Routers - Not running properly
 </br>
 Commit 9 - REST Framework Generic Viewsets
 </br>
-11 - REST Framework Modal Viewsets
+Commit 10 - REST Framework Model Viewsets

@@ -17,6 +17,6 @@ urlpatterns = [
     path('GenericAPI/', GenericAPIView.as_view()), # Commit 6 - Generic API Views - GET, POST
     path('GenericAPI/<int:id>/', GenericAPIView.as_view()), # Commit 6 - Generic API Views - GET, PUT, DELETE
 
-    path('viewset/', include(router.urls)), # Commit 8 & 9 - ViewSet - GET, POST
-    path('viewset/<int:pk>', include(router.urls)), # Commit 9 - Generic ViewSet GET, PUT, DELETE
+    path('viewset/', include(router.urls)), # Commit 8 & 9 & 10 - ViewSet - GET, POST
+    path('viewset/<int:pk>', include(router.urls)), # Commit 9 & 10 - Generic ViewSet GET, PUT, DELETE
 ]
