@@ -1,5 +1,9 @@
-from django.urls import path
-from .views import article_list, article_detail, ArticleAPIView, ArticleAPIDetail, GenericAPIView
+from django.urls import path, include
+from .views import article_list, article_detail, ArticleAPIView, ArticleAPIDetail, GenericAPIView, ArticleViewSet
+from rest_framework.routers import DefaultRouter # Import Router for ViewSet
+
+router = DefaultRouter() # Registering Router for ViewSet
+router.register('article', ArticleViewSet, basename='article')
 
 # The API Url's (to test you can use Postman)
 
@@ -12,4 +16,7 @@ urlpatterns = [
 
     path('GenericAPI/', GenericAPIView.as_view()), # Commit 6 - Generic API Views - GET, POST
     path('GenericAPI/<int:id>/', GenericAPIView.as_view()), # Commit 6 - Generic API Views - GET, PUT, DELETE
+
+    path('viewset/', include(router.urls)), # Commit 8 - ViewSet - GET, POST
+    path('viewset/<int:pk>', include(router.urls)), # Commit 8 - sadly not working...
 ]

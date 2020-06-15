@@ -9,6 +9,8 @@ from rest_framework.views import APIView # Commit 5 - To use Class Based Views, 
 from rest_framework import generics, mixins # Commit 6 - To use Generic API Views
 from rest_framework.authentication import BasicAuthentication, SessionAuthentication, TokenAuthentication # Commit 7 - 3 Types of Authentication
 from rest_framework.permissions import IsAuthenticated
+from rest_framework import viewsets # Commit 8 - Using ViewSets
+from django.shortcuts import get_object_or_404
 
 # from django.views.decorators.csrf import csrf_exempt <-- Needed that the API works without CSRF Token when not using api_view decorator, not safe for production!
 
@@ -139,3 +141,40 @@ class GenericAPIView(generics.GenericAPIView, mixins.ListModelMixin, # All these
 
     def delete(self, request, id): # DELETE
         return self.destroy(request, id)
+
+
+######## ViewSet API Views ########
+
+
+class ArticleViewSet(viewsets.ViewSet): # I think Commit 8 - ViewSets don't bring any advantage...it's just more complicated with the router...
+
+    def list(self, request): # GET All
+        articles = Article.objects.all()
+        serializer = ArticleSerializer(articles, many=True)
+        return Response(serializer.data) 
+
+    def create(self, request): # POST
+        serializer = ArticleSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def retrieve(self, request, pk=None): # GET one - not working
+        queryset = Article.objects.all()
+        article = get_object_or_404(queryset, pk)
+        serializer = ArticleSerializer(article)
+        return Response(serializer.data)
+
+    def update(self, request, pk=None): # PUT - not working
+        article = Article.object.get(pk=pk)
+        serializer = ArticleSerializer(article, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def destroy(self, request, pk=None): # DELETE - not working
+        article = Article.get_object(pk=pk)
+        article.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)

@@ -16,7 +16,7 @@ Commit 6 - REST Generic Views & Mixins
 </br>
 Commit 7 - REST Framework Authentication
 </br>
-9 - REST Framework Viewsets & Routers
+Commit 8 - REST Framework Viewsets & Routers - Not running properly
 </br>
 10 - REST Framework Generic Viewsets
 </br>
